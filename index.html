@@ -1,0 +1,1456 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jutamat Jarusirisakul - Junior Fullstack Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        line-height: 1.6;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .hero-gradient {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      }
+
+      .fade-in {
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section-spacing {
+        padding: 5rem 1.5rem;
+      }
+
+      .card-hover {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .card-hover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background-color: #1e3a8a;
+        transition: width 0.4s ease;
+        border-radius: 999px 999px 0 0;
+        z-index: 1;
+      }
+
+      .card-hover:hover::before {
+        width: 100%;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      @media (max-width: 768px) {
+        .section-spacing {
+          padding: 3rem 1rem;
+        }
+      }
+
+      .bounce {
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(10px);
+        }
+      }
+
+      .carousel {
+        position: relative;
+        overflow: hidden;
+        padding: 12px 0 36px;
+      }
+
+      .carousel-track {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform;
+      }
+
+      .carousel-slide {
+        flex-shrink: 0;
+        width: 65%;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        cursor: pointer;
+        transition:
+          transform 0.5s ease,
+          opacity 0.5s ease,
+          box-shadow 0.5s ease;
+        transform: scale(0.82) perspective(900px) rotateY(12deg);
+        opacity: 0.45;
+      }
+
+      .carousel-slide.is-prev {
+        transform: scale(0.88) perspective(900px) rotateY(12deg);
+        opacity: 0.65;
+        transform-origin: right center;
+      }
+
+      .carousel-slide.is-next {
+        transform: scale(0.88) perspective(900px) rotateY(-12deg);
+        opacity: 0.65;
+        transform-origin: left center;
+      }
+
+      .carousel-slide.is-active {
+        transform: scale(1) perspective(900px) rotateY(0deg);
+        opacity: 1;
+        box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.35);
+        cursor: default;
+        z-index: 2;
+      }
+
+      .carousel-slide img {
+        width: 100%;
+        display: block;
+      }
+
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(calc(-50% - 18px));
+        background: rgba(30, 58, 138, 0.85);
+        color: white;
+        border: none;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        font-size: 1.1rem;
+        cursor: pointer;
+        z-index: 20;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+
+      .carousel-btn:hover {
+        background: #1e3a8a;
+        transform: translateY(calc(-50% - 18px)) scale(1.1);
+      }
+
+      .carousel-btn-prev {
+        left: 8px;
+      }
+      .carousel-btn-next {
+        right: 8px;
+      }
+
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #cbd5e1;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+      }
+
+      .carousel-dot.is-active {
+        background: #1e3a8a;
+        transform: scale(1.4);
+      }
+
+      .profile-image {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      @media (min-width: 768px) {
+        .profile-image {
+          width: 192px;
+          height: 192px;
+        }
+      }
+
+      .profile-wrapper {
+        position: relative;
+        border-radius: 50%;
+        padding: 5px;
+      }
+
+      .profile-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        padding: 5px;
+        background: conic-gradient(
+          from 0deg,
+          #93c5fd,
+          #60a5fa,
+          #1e40af,
+          rgba(255, 255, 255, 0.9),
+          #bfdbfe,
+          #3b82f6,
+          #93c5fd
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        animation: spin-ring 3s linear infinite;
+      }
+
+      @keyframes spin-ring {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900">
+    <!-- Hero Section -->
+    <section
+      class="hero-gradient min-h-screen flex items-center justify-center text-white relative overflow-hidden"
+    >
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div
+        class="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center fade-in"
+      >
+        <!-- Profile Image -->
+        <div class="mb-8 flex justify-center">
+          <!-- Replace with actual image: <img src="path/to/profile.jpg" alt="Jutamat Jarusirisakul" class="profile-image"> -->
+          <div class="profile-wrapper">
+            <div
+              class="profile-image overflow-hidden bg-white/20 flex items-center justify-center text-7xl"
+            >
+              <img
+                src="imports/profile.png"
+                alt="profile"
+                class="w-full rounded-lg shadow-md border border-gray-200"
+              />
+            </div>
+          </div>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
+          Jutamat Jarusirisakul
+        </h1>
+        <h2 class="text-3xl md:text-4xl font-light mb-6">
+          Junior Fullstack Developer
+        </h2>
+        <p
+          class="text-lg md:text-xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed"
+        >
+          Fullstack Developer with hands-on experience building scalable web
+          applications using Next.js, NestJS, and PostgreSQL, with a strong
+          focus on real-world system design and clean architecture. Experienced
+          in coordinating cross-functional workflows and translating business
+          requirements into technical solutions, backed by 10+ years of
+          operational and team management experience. Enthusiastic about growing
+          into a Project Technical Owner (PTO) / Technical Project Manager (PTM)
+          role, bridging business requirements and technical implementation to
+          build scalable, high-performance systems.
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center mb-8">
+          <a
+            href="#projects"
+            class="px-8 py-4 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            View My Projects
+          </a>
+          <a
+            href="#contact"
+            class="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-all"
+          >
+            Contact Me
+          </a>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="flex flex-wrap gap-6 justify-center">
+          <a
+            href="https://github.com/nicknasakt7"
+            target="_blank"
+            class="flex items-center gap-2 text-blue-100 hover:text-white transition-all transform hover:scale-110"
+          >
+            <i class="fab fa-github text-xl"></i>
+            <span class="font-medium">GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jutamat-jarusirisakul-033a32388"
+            target="_blank"
+            class="flex items-center gap-2 text-blue-100 hover:text-white transition-all transform hover:scale-110"
+          >
+            <i class="fab fa-linkedin text-xl"></i>
+            <span class="font-medium">LinkedIn</span>
+          </a>
+          <a
+            href="mailto:j.nicksakul@gmail.com"
+            class="flex items-center gap-2 text-blue-100 hover:text-white transition-all transform hover:scale-110"
+          >
+            <i class="fas fa-envelope text-xl"></i>
+            <span class="font-medium">Email</span>
+          </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div
+          class="absolute bottom-10 left-1/2 transform -translate-x-1/2 bounce"
+        >
+          <i class="fas fa-chevron-down text-3xl text-white/70"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section class="section-spacing bg-gradient-to-b from-white to-gray-100">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center text-blue-900 fade-in">
+          Technical Skills
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Programming Languages -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i class="fas fa-code text-2xl text-blue-900"></i>
+              <h3 class="text-xl font-bold text-blue-900">Languages</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >TypeScript</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >JavaScript</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >SQL</span
+              >
+            </div>
+          </div>
+
+          <!-- Frontend -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i class="fas fa-desktop text-2xl text-blue-900"></i>
+              <h3 class="text-xl font-bold text-blue-900">Frontend</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >React</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Next.js</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Tailwind CSS</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Zustand</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >TanStack Query</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Shadcn/UI</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >NextAuth</span
+              >
+            </div>
+          </div>
+
+          <!-- Backend -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i class="fas fa-server text-2xl text-blue-900"></i>
+              <h3 class="text-xl font-bold text-blue-900">Backend</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Node.js</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >NestJS</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Express.js</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >REST APIs</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >JWT</span
+              >
+            </div>
+          </div>
+
+          <!-- Database & ORM -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i class="fas fa-database text-2xl text-blue-900"></i>
+              <h3 class="text-xl font-bold text-blue-900">Database & ORM</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >PostgreSQL</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >MongoDB</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Prisma</span
+              >
+            </div>
+          </div>
+
+          <!-- Tools & Platforms -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i class="fas fa-tools text-2xl text-blue-900"></i>
+              <h3 class="text-xl font-bold text-blue-900">Tools & Platforms</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Git</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >GitHub</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Docker</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Cloudinary</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Jira</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >n8n</span
+              >
+            </div>
+          </div>
+
+          <!-- AI & Developer Tools -->
+          <div
+            class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i class="fas fa-brain text-2xl text-blue-900"></i>
+              <h3 class="text-xl font-bold text-blue-900">
+                AI & Developer Tools
+              </h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Claude Code</span
+              >
+              <span
+                class="px-4 py-2 bg-blue-100 text-blue-900 rounded-full text-sm font-medium"
+                >Gemini AI</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section id="projects" class="section-spacing bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-8 fade-in">
+          <i class="fas fa-rocket text-4xl text-blue-900"></i>
+          <h2 class="text-4xl md:text-5xl font-bold text-blue-900">
+            Featured Projects
+          </h2>
+        </div>
+
+        <div class="space-y-8">
+          <!-- Employee Management Internal System -->
+          <div
+            class="bg-gradient-to-br from-gray-50 to-white p-8 md:p-10 rounded-3xl shadow-lg hover:shadow-xl transition-all border border-blue-900/10 fade-in"
+          >
+            <div class="flex items-start justify-between mb-6 flex-wrap gap-4">
+              <div class="flex-1">
+                <h3 class="text-2xl md:text-3xl font-bold text-blue-900 mb-2">
+                  Team Flow Management System – Project & Task Management
+                  Platform
+                </h3>
+                <p class="text-base text-gray-600 italic">
+                  (Personal Project / Fullstack Developer)
+                </p>
+              </div>
+              <span
+                class="px-4 py-2 bg-blue-900 text-white text-sm font-semibold rounded-full"
+              >
+                FEATURED PROJECT
+              </span>
+            </div>
+
+            <div class="mb-6 space-y-3 text-gray-700 leading-relaxed">
+              <p>
+                The application is designed to help
+                <strong>small organizations</strong> manage their
+                <strong>workflow</strong> more effectively, from
+                <strong>project creation</strong> to
+                <strong>task completion</strong>.
+              </p>
+              <p>
+                Users can create projects that consist of multiple tasks, where
+                each task can be assigned to a specific employee with clear
+                <strong>one-to-one ownership</strong>. Assigned users are
+                responsible for updating task statuses (<span
+                  class="inline-flex gap-1"
+                >
+                  <span
+                    class="px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded text-xs font-semibold"
+                    >In Progress</span
+                  >
+                  <span
+                    class="px-2 py-0.5 bg-green-100 text-green-800 rounded text-xs font-semibold"
+                    >Done</span
+                  > </span
+                >), while all members can collaborate through
+                <strong>task-level comments</strong>.
+              </p>
+              <p class="flex items-start gap-2">
+                <span
+                  class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-blue-900 flex items-center justify-center"
+                >
+                  <i
+                    class="fas fa-shield-alt text-white"
+                    style="font-size: 0.55rem"
+                  ></i>
+                </span>
+                <span>
+                  The system includes
+                  <strong>role-based access control</strong> —
+                  <span class="inline-flex gap-1 flex-wrap">
+                    <span
+                      class="px-2 py-0.5 bg-blue-100 text-blue-900 rounded text-xs font-semibold"
+                      >Super Admin</span
+                    >
+                    <span
+                      class="px-2 py-0.5 bg-blue-100 text-blue-900 rounded text-xs font-semibold"
+                      >Admin</span
+                    >
+                    <span
+                      class="px-2 py-0.5 bg-blue-100 text-blue-900 rounded text-xs font-semibold"
+                      >Employee</span
+                    >
+                  </span>
+                  — allowing administrators to manage users, assign tasks, and
+                  oversee project progress.
+                </span>
+              </p>
+              <p>
+                To reduce manual tracking, the system
+                <strong>automatically marks a project as completed</strong>
+                once all tasks are finished, ensuring consistency across
+                workflows.
+              </p>
+              <p>
+                A <strong>dashboard</strong> provides real-time visibility into
+                overall performance, including <strong>completed tasks</strong>,
+                <strong>pending work</strong>, <strong>overdue items</strong>,
+                and <strong>progress tracking</strong>. Supports employee
+                management with filtering by <strong>department</strong> and
+                <strong>level</strong>.
+              </p>
+              <p class="text-sm text-gray-500 border-l-4 border-blue-200 pl-3">
+                Security is handled through
+                <span class="font-medium text-gray-700">password hashing</span>,
+                and users are able to manage their own credentials securely.
+              </p>
+            </div>
+
+            <!-- Carousel -->
+            <div class="carousel mb-6" data-carousel>
+              <div class="carousel-track">
+                <div class="carousel-slide">
+                  <img src="imports/pic1.png" alt="Dashboard 1" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic2.png" alt="Dashboard 2" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic4.png" alt="Dashboard 3" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic5.png" alt="Dashboard 5" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic6.png" alt="Dashboard 6" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic7.png" alt="Dashboard 6" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic8.png" alt="Dashboard 6" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic9.png" alt="Dashboard 6" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/pic10.png" alt="Dashboard 6" />
+                </div>
+              </div>
+              <button class="carousel-btn carousel-btn-prev">&#10094;</button>
+              <button class="carousel-btn carousel-btn-next">&#10095;</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <!-- Architecture & Tech Stack -->
+              <div>
+                <h4 class="font-bold text-blue-900 mb-3 uppercase text-sm">
+                  Architecture & Tech Stack
+                </h4>
+                <p class="text-gray-700 text-sm leading-relaxed">
+                  Next.js, NestJS, PostgreSQL, Prisma ORM, REST APIs, JWT
+                  (cookie-based), Cloudinary(file storage), TanStack React
+                  Query, NextAuth
+                </p>
+              </div>
+
+              <!-- Key Features -->
+              <div>
+                <h4 class="font-bold text-blue-900 mb-3 uppercase text-sm">
+                  Key Features
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-700">
+                  <li>
+                    • Project and task management with multi-user assignment
+                  </li>
+                  <li>
+                    • Role-based access control for SUPER_ADMIN, ADMIN, and
+                    MEMBER
+                  </li>
+                  <li>• Task status tracking with real-time updates</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Responsibilities & Contributions -->
+            <div class="mb-6">
+              <h4 class="font-bold text-blue-900 mb-3 uppercase text-sm">
+                Responsibilities & Contributions
+              </h4>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>
+                  •
+                  <strong
+                    >Designed and implemented fullstack architecture</strong
+                  >
+                  across frontend, backend, and database layers
+                </li>
+                <li>
+                  •
+                  <strong>Developed authentication system using JWT</strong> and
+                  implemented <strong>role-based authorization (RBAC)</strong>
+                </li>
+                <li>
+                  • <strong>Designed relational database schema</strong> for
+                  projects, tasks, users, and role relationships
+                </li>
+                <li>
+                  •
+                  <strong>Implemented task assignment logic</strong> supporting
+                  multiple users and role-based permissions
+                </li>
+                <li>
+                  • <strong>Built backend services using NestJS</strong>,
+                  including API design, data flow, and business logic
+                </li>
+                <li>
+                  •
+                  <strong>Developed frontend features using Next.js</strong> for
+                  project creation, task assignment, and status tracking
+                </li>
+                <li>
+                  •
+                  <strong>Integrated frontend and backend via REST APIs</strong
+                  >, ensuring consistent data flow and synchronization
+                </li>
+                <li>
+                  •
+                  <strong
+                    >Implemented proxy-based access control using
+                    middleware</strong
+                  >
+                  to enforce role-based route protection and secure access
+                </li>
+                <li>
+                  • <strong>Handled edge cases</strong> such as concurrent task
+                  updates, role-based restrictions, and data consistency
+                </li>
+                <li>
+                  • Implemented
+                  <b
+                    >authentication using NextAuth (custom credentials
+                    provider)</b
+                  >, integrating backend login API, managing
+                  <b>JWT access tokens</b>, and handling
+                  <b>token lifecycle and session synchronization</b>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Links -->
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
+              <a
+                href="https:www.teamflowmanagement.site"
+                target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-900 text-white rounded-full font-semibold hover:bg-blue-800 transition-all shadow-lg text-sm transform hover:scale-105"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                Live Demo
+              </a>
+              <a
+                href="https://github.com/nicknasakt7"
+                target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-800 text-white rounded-full font-semibold hover:bg-gray-700 transition-all shadow-lg text-sm transform hover:scale-105"
+              >
+                <i class="fab fa-github"></i>
+                GitHub: Employee Management (Frontend)
+              </a>
+              <a
+                href="https://github.com/nicknasakt7"
+                target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-800 text-white rounded-full font-semibold hover:bg-gray-700 transition-all shadow-lg text-sm transform hover:scale-105"
+              >
+                <i class="fab fa-github"></i>
+                GitHub: Employee Management (Backend)
+              </a>
+            </div>
+          </div>
+
+          <!-- iSchool System -->
+          <div
+            class="bg-gradient-to-br from-blue-50 to-white p-8 md:p-10 rounded-3xl shadow-lg hover:shadow-xl transition-all border border-blue-900/10 fade-in"
+          >
+            <div class="flex items-start justify-between mb-6 flex-wrap gap-4">
+              <div class="flex-1">
+                <h3 class="text-2xl md:text-3xl font-bold text-blue-900 mb-2">
+                  iSchool System – AI-driven Education Platform
+                </h3>
+                <p class="text-base text-gray-600 italic">
+                  (Project Leader / Fullstack Developer)
+                </p>
+              </div>
+              <span
+                class="px-4 py-2 bg-blue-900 text-white text-sm font-semibold rounded-full"
+              >
+                FEATURED PROJECT
+              </span>
+            </div>
+
+            <div class="mb-6 space-y-3 text-gray-700 leading-relaxed">
+              <p>
+                <span
+                  class="text-2xl font-extrabold text-blue-900 tracking-tight"
+                  >iSchool</span
+                >
+                is a school management platform that centralizes everything a
+                school needs into one system — from
+                <strong>student records</strong> and
+                <strong>academic scoring</strong> to
+                <strong>billing</strong> and
+                <strong>parent communication</strong>.
+              </p>
+              <p>
+                Instead of juggling spreadsheets and paper forms, admins can
+                manage students, teachers, and classrooms digitally. Teachers
+                get a dedicated workspace to configure assessments, record
+                scores, and track daily attendance. Parents stay informed
+                through their own portal, where they can view their child's
+                grades and pay school bills online via <strong>Stripe</strong>.
+              </p>
+              <p class="flex items-start gap-2">
+                <span
+                  class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-blue-900 flex items-center justify-center"
+                >
+                  <i
+                    class="fas fa-robot text-white"
+                    style="font-size: 0.6rem"
+                  ></i>
+                </span>
+                <span>
+                  What sets
+                  <span class="font-bold text-blue-900">iSchool</span> apart is
+                  its <strong>AI-powered insight feature</strong> — powered by
+                  <strong>Google Gemini</strong>, the system automatically
+                  analyzes each student's performance and generates actionable
+                  feedback for both teachers and parents, helping schools
+                  <strong>identify at-risk students early</strong> and
+                  personalize learning support.
+                </span>
+              </p>
+              <p class="text-sm text-gray-500 border-l-4 border-blue-200 pl-3">
+                Built with a modern, production-ready stack —
+                <span class="font-medium text-gray-700"
+                  >Next.js, NestJS, PostgreSQL, Prisma</span
+                >
+                — designed to scale with the institution: multiple grades,
+                classrooms, terms, and academic years out of the box.
+              </p>
+            </div>
+
+            <!-- Carousel -->
+            <div class="carousel mb-6" data-carousel>
+              <div class="carousel-track">
+                <div class="carousel-slide">
+                  <img src="imports/homepage.png" alt="iSchool Homepage" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/group-login-page.png" alt="iSchool Login" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/dashboard.png" alt="iSchool Dashboard" />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/student-ai.png" alt="iSchool Student AI" />
+                </div>
+                <div class="carousel-slide">
+                  <img
+                    src="imports/students-list.png"
+                    alt="iSchool Students List"
+                  />
+                </div>
+                <div class="carousel-slide">
+                  <img src="imports/room-ai.png" alt="iSchool Room AI" />
+                </div>
+              </div>
+              <button class="carousel-btn carousel-btn-prev">&#10094;</button>
+              <button class="carousel-btn carousel-btn-next">&#10095;</button>
+              <div class="carousel-dots">
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+                <button class="carousel-dot"></button>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <!-- Architecture & Tech Stack -->
+              <div>
+                <h4 class="font-bold text-blue-900 mb-3 uppercase text-sm">
+                  Architecture & Tech Stack
+                </h4>
+                <p class="text-gray-700 text-sm leading-relaxed">
+                  Next.js, NestJS, PostgreSQL, Prisma ORM, REST APIs,
+                  JWT,Tailwind CSS,shadcn/ui, TanStack React Query,
+                  NextAuth(secure cookie-based authentication), Cloudinary (file
+                  storage), Google Gemini AI, Stripe, Gemini AI, Nodemailer
+                  (email)
+                </p>
+              </div>
+
+              <!-- Key Features -->
+              <div>
+                <h4 class="font-bold text-blue-900 mb-3 uppercase text-sm">
+                  Key Features
+                </h4>
+                <ul class="space-y-2 text-sm text-gray-700 leading-relaxed">
+                  <li>
+                    • Full student and teacher management with profile image
+                    uploads via <b>Cloudinary</b>
+                  </li>
+
+                  <li>
+                    • Flexible per-term assessment configuration, score entry,
+                    and automatic <b>GPA calculation</b>
+                  </li>
+
+                  <li>
+                    • Daily attendance tracking with school-wide summaries
+                  </li>
+
+                  <li>
+                    • <b>Stripe-integrated billing</b> with bulk bill generation
+                    and online payments, including webhook confirmation
+                  </li>
+
+                  <li>
+                    • <b>Google Gemini AI</b>-generated performance insights for
+                    students and classes with database caching
+                  </li>
+
+                  <li>
+                    • Email-based parent invitation and onboarding flow using
+                    <b>Nodemailer</b>
+                  </li>
+
+                  <li>
+                    • Student enrollment history tracking, including promotions,
+                    retentions, and transfers
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Responsibilities & Contributions -->
+            <div class="mb-6">
+              <h4 class="font-bold text-blue-900 mb-3 uppercase text-sm">
+                Responsibilities & Contributions
+              </h4>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>
+                  • <strong>Acted as a Team Lead</strong>, facilitating
+                  requirement discussions, aligning product direction, and
+                  breaking down features into technical tasks for the team
+                </li>
+                <li>
+                  •
+                  <strong
+                    >Led system design and defined technical workflows</strong
+                  >
+                  based on team discussions, ensuring shared understanding
+                  across frontend, backend, and data flow
+                </li>
+                <li>
+                  • Developed <strong>core user flows</strong> (student,
+                  teacher, AI analysis) and backend services using NestJS
+                </li>
+                <li>
+                  • Designed <strong>relational database schema</strong> and
+                  built <strong>promotion and class transition logic</strong>
+                </li>
+                <li>
+                  • Implemented <strong>Stripe payment integration</strong>,
+                  <strong>TanStack Query state management</strong>, and
+                  <strong>Gemini AI integration</strong>
+                </li>
+                <li>
+                  • Designed <strong>AI-based</strong> alert system and prepared
+                  <strong>project structure for team handover</strong>
+                </li>
+                <li>
+                  • Handled <strong>edge cases</strong> including incomplete
+                  data, class transitions, and dynamic updates
+                </li>
+                <li>
+                  • Implemented
+                  <strong
+                    >authentication using NextAuth (custom credentials
+                    provider)</strong
+                  >, integrating backend login API, managing
+                  <strong>JWT access tokens</strong>, and handling
+                  <strong>token lifecycle and session synchronization</strong>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Links -->
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-200">
+              <a
+                href="https://i-school-frontend.vercel.app/"
+                target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-900 text-white rounded-full font-semibold hover:bg-blue-800 transition-all shadow-lg text-sm transform hover:scale-105"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                Live Demo
+              </a>
+              <a
+                href="https://github.com/nicknasakt7/iSchool-Frontend"
+                target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-800 text-white rounded-full font-semibold hover:bg-gray-700 transition-all shadow-lg text-sm transform hover:scale-105"
+              >
+                <i class="fab fa-github"></i>
+                GitHub: iSchool (Frontend)
+              </a>
+              <a
+                href="https://github.com/nicknasakt7/iSchool-Backend"
+                target="_blank"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-800 text-white rounded-full font-semibold hover:bg-gray-700 transition-all shadow-lg text-sm transform hover:scale-105"
+              >
+                <i class="fab fa-github"></i>
+                GitHub: iSchool (Backend)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section class="section-spacing bg-gray-50">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center text-blue-900 fade-in">
+          Professional Experience
+        </h2>
+
+        <div class="space-y-6">
+          <!-- Restaurant Owner -->
+          <div
+            class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-start justify-between flex-wrap gap-4 mb-3">
+              <h3 class="text-xl font-bold text-blue-900">
+                Small Restaurant Owner & Operator
+              </h3>
+              <span class="text-gray-600 font-semibold">2020–2025</span>
+            </div>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  >Managed <strong>operations and team workflows</strong> in
+                  high-pressure environments</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  >Solved <strong>real-time problems</strong> and
+                  <strong>improved processes</strong> to increase
+                  <strong>efficiency</strong></span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Family Business -->
+          <div
+            class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-start justify-between flex-wrap gap-4 mb-3">
+              <h3 class="text-xl font-bold text-blue-900">
+                Family Business Operations & Management (Mobile & Retail)
+              </h3>
+              <span class="text-gray-600 font-semibold">2017–2025</span>
+            </div>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  >Diagnosed and resolved mobile device issues, including
+                  <strong>software-related problems</strong></span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  >Applied <strong>structured troubleshooting</strong> and
+                  <strong>logical thinking</strong> to solve
+                  <strong>technical issues</strong></span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  ><strong>Managed workflows</strong> and
+                  <strong>coordinated team operations</strong> in fast-paced
+                  environments</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  >Handled buying and selling of gold (new and second-hand),
+                  requiring <strong>accuracy</strong>,
+                  <strong>risk assessment</strong>, and
+                  <strong>real-time decision-making</strong></span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Assistant Producer - Nagara House -->
+          <div
+            class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-start justify-between flex-wrap gap-4 mb-3">
+              <div>
+                <h3 class="text-xl font-bold text-blue-900">
+                  Assistant Producer (Freelance)
+                </h3>
+                <p class="text-gray-600">Nagara House Production</p>
+              </div>
+              <span class="text-gray-600 font-semibold">2015–2016</span>
+            </div>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  ><strong>Coordinated cross-functional teams</strong> under
+                  high-pressure environments</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  ><strong>Managed timelines</strong> and
+                  <strong>resolved unexpected issues</strong> to ensure
+                  <strong>project continuity</strong></span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Casting Assistant -->
+          <div
+            class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-start justify-between flex-wrap gap-4 mb-3">
+              <div>
+                <h3 class="text-xl font-bold text-blue-900">
+                  Casting Assistant (Freelance)
+                </h3>
+                <p class="text-gray-600">Freelance</p>
+              </div>
+              <span class="text-gray-600 font-semibold">2015–2016</span>
+            </div>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  ><strong>Coordinated schedules</strong> and supported
+                  operations in fast-paced environments</span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  >Ensured smooth execution through
+                  <strong>clear communication</strong> and
+                  <strong>teamwork</strong></span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Assistant Producer - Pano360 -->
+          <div
+            class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all card-hover"
+          >
+            <div class="flex items-start justify-between flex-wrap gap-4 mb-3">
+              <div>
+                <h3 class="text-xl font-bold text-blue-900">
+                  Assistant Producer (Freelance) – Commercial & 360° Photography
+                </h3>
+                <p class="text-gray-600">Pano360</p>
+              </div>
+              <span class="text-gray-600 font-semibold">2014–2015</span>
+            </div>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  ><strong>Coordinated workflows</strong> between teams in
+                  <strong>deadline-driven environments</strong></span
+                >
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-circle text-blue-900 text-xs mt-2"></i>
+                <span
+                  >Supported <strong>on-site problem-solving</strong> to ensure
+                  <strong>project completion</strong></span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="section-spacing bg-white">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold mb-12 text-center text-blue-900 fade-in">
+          Education
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div
+            class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all card-hover border border-blue-100"
+          >
+            <div class="mb-4">
+              <i class="fas fa-graduation-cap text-4xl text-blue-900 mb-4"></i>
+              <h3 class="text-2xl font-bold text-blue-900 mb-2">
+                Fullstack Web Development Bootcamp
+              </h3>
+              <p class="text-gray-600 font-semibold mb-3">
+                DevNest School | Dec 2025 – Apr 2026
+              </p>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              Intensive training in fullstack development using TypeScript,
+              React, Next.js, NestJS, and Prisma, with a focus on scalable
+              architecture and modern development practices.
+            </p>
+          </div>
+
+          <div
+            class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all card-hover border border-blue-100"
+          >
+            <div class="mb-4">
+              <i class="fas fa-university text-4xl text-blue-900 mb-4"></i>
+              <h3 class="text-2xl font-bold text-blue-900 mb-2">
+                Bachelor of Political Science
+              </h3>
+              <p class="text-gray-600 font-semibold mb-3">
+                Ramkhamhaeng University | 2010-2013
+              </p>
+            </div>
+            <p class="text-gray-700 leading-relaxed">
+              Foundation in analytical thinking, structured problem-solving, and
+              research methodology.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-spacing hero-gradient text-white">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-center fade-in">
+          Get In Touch
+        </h2>
+        <p class="text-center text-blue-100 text-lg mb-12 max-w-2xl mx-auto">
+          I'm open to new opportunities and collaborations. Feel free to reach
+          out!
+        </p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <a
+            href="mailto:j.nicksakul@gmail.com"
+            class="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all transform hover:scale-105"
+          >
+            <i class="fas fa-envelope text-4xl"></i>
+            <div>
+              <p class="text-sm text-blue-200 mb-1">Email</p>
+              <p class="font-semibold">j.nicksakul@gmail.com</p>
+            </div>
+          </a>
+
+          <a
+            href="tel:0638798982"
+            class="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all transform hover:scale-105"
+          >
+            <i class="fas fa-phone text-4xl"></i>
+            <div>
+              <p class="text-sm text-blue-200 mb-1">Phone</p>
+              <p class="font-semibold">063-879-8982</p>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/nicknasakt7"
+            target="_blank"
+            class="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all transform hover:scale-105"
+          >
+            <i class="fab fa-github text-4xl"></i>
+            <div>
+              <p class="text-sm text-blue-200 mb-1">GitHub</p>
+              <p class="font-semibold">nicknasakt7</p>
+            </div>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/jutamat-jarusirisakul-033a32388"
+            target="_blank"
+            class="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-6 rounded-xl hover:bg-white/20 transition-all transform hover:scale-105"
+          >
+            <i class="fab fa-linkedin text-4xl"></i>
+            <div>
+              <p class="text-sm text-blue-200 mb-1">LinkedIn</p>
+              <p class="font-semibold">Jutamat Jarusirisakul</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="text-center text-blue-100 border-t border-white/20 pt-8">
+          <p class="text-lg mb-2">
+            © 2026 Jutamat Jarusirisakul. All rights reserved.
+          </p>
+          <p class="text-sm">
+            Languages: Thai (Native), English (Intermediate)
+          </p>
+        </div>
+      </div>
+    </section>
+    <script>
+      document.querySelectorAll('[data-carousel]').forEach(function (carousel) {
+        var track = carousel.querySelector('.carousel-track');
+        var slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+        var dots = Array.from(carousel.querySelectorAll('.carousel-dot'));
+        var current = 0;
+
+        function update() {
+          var slideW = carousel.clientWidth * 0.65 + 16;
+          var offset =
+            carousel.clientWidth / 2 -
+            slideW * current -
+            (carousel.clientWidth * 0.65) / 2;
+          track.style.transform = 'translateX(' + offset + 'px)';
+
+          slides.forEach(function (s, i) {
+            s.classList.remove('is-active', 'is-prev', 'is-next');
+            if (i === current) s.classList.add('is-active');
+            else if (i === current - 1) s.classList.add('is-prev');
+            else if (i === current + 1) s.classList.add('is-next');
+          });
+
+          dots.forEach(function (d, i) {
+            d.classList.toggle('is-active', i === current);
+          });
+        }
+
+        carousel
+          .querySelector('.carousel-btn-prev')
+          .addEventListener('click', function () {
+            if (current > 0) {
+              current--;
+              update();
+            }
+          });
+
+        carousel
+          .querySelector('.carousel-btn-next')
+          .addEventListener('click', function () {
+            if (current < slides.length - 1) {
+              current++;
+              update();
+            }
+          });
+
+        dots.forEach(function (d, i) {
+          d.addEventListener('click', function () {
+            current = i;
+            update();
+          });
+        });
+
+        slides.forEach(function (s, i) {
+          s.addEventListener('click', function () {
+            if (i !== current) {
+              current = i;
+              update();
+            }
+          });
+        });
+
+        update();
+        window.addEventListener('resize', update);
+      });
+    </script>
+  </body>
+</html>
